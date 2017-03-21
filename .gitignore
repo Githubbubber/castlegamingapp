@@ -1,0 +1,11 @@
+# Pass keys file
+passkeys.js
+
+#Blog posts directory
+blog_posts
+
+# Dependency directory
+node_modules/
+
+#Error logs directory
+error_log

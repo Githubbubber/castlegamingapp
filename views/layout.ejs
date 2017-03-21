@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {        
+            $("div.pastvid img").fadeIn(1000);    
+            $("div.pastvid img").css({  width: "90%",   paddingTop: "8%", cursor:"pointer" });
+        });
+    </script>
+</head>
+<body>
+    <header class="container">
+		<div class="four columns">
+			<a href="index"><img src="images/logo.png" class="scale-with-grid" title="Castle Gaming" alt="" /></a>
+		</div>
+      	<div class="twelve columns">
+            <img src="images/blog_bg.jpg" alt="" class="headerImg" usemap="#cg_blogln" name="blogln" width="100%" />
+            <map name="cg_blogln">
+            	<area shape="poly" coords="0,0,359,121,0,121,0,0" href="blog" title="CG Blog">                
+            	<area shape="poly" coords="0,0,359,0,359,121,0,0" href="news" title="CG News">
+            </map>
+            
+            <img src="images/t_sv_bg.jpg" alt="" class="headerImg" usemap="#cg_tsv" name="tsv" width="100%" />
+            <map name="cg_tsv">
+            	<area shape="poly" coords="0,0,359,121,0,121,0,0" href="tournaments" title="Tournaments">
+            	<area shape="poly" coords="0,0,359,0,359,121,0,0" href="stream" title="Stream">
+            </map>            
+		</div>
+        <hr />
+    </header>
+          
+	<%- body %>
+
+    <%- body1 %>
+
+    <%- body2 %>
+
+    <%- body3 %>
+	
+    <footer>
+        <nav class="container">
+        <section class="one-third column"> 
+            <strong class="footertitles">Check us out</strong>
+            <ul>           	
+                <li><a href="index">HOME</a> </li>
+                <li><a href="tournaments">TOURNAMENTS</a></li>
+                <li><a href="news">LATEST NEWS</a></li>
+                <li><a href="stream">STREAMS AND VIDEOS</a> </li>
+                <li><a href="blog">BLOG</a></li>
+            </ul>
+         </section>
+        <section class="one-third column"> 
+            <a href="contact"><strong class="footertitles">Hit us up</strong></a><br /><br />
+        </section>           
+        <section class="one-third column"> 
+            <strong class="footertitles">Call us soon</strong>
+            <ul>
+                <li>(929) 324-0253</li>
+            </ul>   
+        </section>                    
+        </nav>
+    </footer>
+
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="../js/ie8.polyfil.min.js"></script>
+	<![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="etc/imageMapResizer.min.js"></script>
+	<script type="text/javascript">$('map').imageMapResize();</script>
+</body>
+</html>
