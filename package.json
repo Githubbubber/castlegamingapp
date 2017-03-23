@@ -11,6 +11,9 @@
     "jquery": "^3.1.1",
     "jsdom": "^9.11.0"
   },
+  "engines" : {
+    "node" : "6.9.2"
+  },
   "author": "Mekesia Brown for Thing to Do",
   "license": ""
 }
