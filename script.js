@@ -1,5 +1,5 @@
 "use strict";
-var passkeys = require('./passkeys'); // Import your own passwords, keys, etc. in a separate file obviously 
+var passkeys = (require('./passkeys'))? require('./passkeys'):""; // Import your own passwords, keys, etc. in a separate file obviously 
 var nytapikey = (passkeys['nytapikey'])? passkeys['nytapikey'] : process.env.nytapikey;
 var gbapikey = (passkeys['gbapikey'])? passkeys['gbapikey'] : process.env.gbapikey;
 var twitchclientid = (passkeys['twitchclientid'])? passkeys['twitchclientid'] : process.env.twitchclientid;
