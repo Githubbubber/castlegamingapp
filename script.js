@@ -1,5 +1,8 @@
 "use strict";
-var passkeys = require('./passkeys'); // Import your own passwords, keys, etc. in a separate file obviously
+var passkeys = require('./passkeys'); // Import your own passwords, keys, etc. in a separate file obviously 
+var nytapikey = (passkeys['nytapikey'])? passkeys['nytapikey'] : process.env.nytapikey;
+var gbapikey = (passkeys['gbapikey'])? passkeys['gbapikey'] : process.env.gbapikey;
+var twitchclientid = (passkeys['twitchclientid'])? passkeys['twitchclientid'] : process.env.twitchclientid;
 var fs = require("fs");
 var http = require("http");
 var path = require("path");
@@ -124,25 +127,28 @@ app.use(express.static(__dirname + '/public'));
 
 
 // The News Page
+  // Full date and time, broken down below. This is used for the Giant Bomb's URL filter requirement
+  var today = new Date(); 
+  var y     = today.getFullYear();
+  var mon   = ((today.getMonth() + 1) < 10)? '0' + (today.getMonth() + 1) : (today.getMonth() + 1);
+  var d     = (today.getDate() < 10)? '0' + today.getDate() : today.getDate();
   app.get('/news', function(req, res){
-    // console.log( "Pass keys \nNYT: " + passkeys['nytapikey'] + "\nGB: " + passkeys['gbapikey'] + "\nTwitch: " + passkeys['twitchclientid'] );
     // New York Times API variables
         var nyturl = "https://api.nytimes.com/svc/topstories/v2/technology.json";
-        nyturl += '?' + $.param({ 'api-key': passkeys['nytapikey'] });
+        nyturl += '?' + $.param({ 'api-key': nytapikey });
     // Giant Bomb API variables
         var baseURL = 'http:///api.giantbomb.com/api/games';
-        var apiKey = passkeys['gbapikey'];
         var id = '';
         var fields = 'name,deck,description,site_detail_url';
         var offset = 0;
         var limit = 3;
         var resources = '';
         var query = '';
-        var filter = 'original_release_date:2016-01-01 00:00:00|2017-03-07 00:00:00';
+        var filter = `original_release_date:${y-1}-${mon}-${d} 00:00:00|${y}-${mon}-${d} 00:00:00`;
         var sort = 'original_release_date:desc';
         var gburl = `${baseURL}` +
                   `/${id ? id : ''}` +
-                  `/?api_key=${apiKey}` + 
+                  `/?api_key=${gbapikey}` + 
                   `${query ? '&query=' + query : ''}` +
                   `${resources ? '&resources=' + resources.join(',') : ''}` +
                   `${fields ? '&field_list=' + fields : ''}` +
@@ -150,6 +156,7 @@ app.use(express.static(__dirname + '/public'));
                   `${filter ? `&filter=${filter}` : ''}` + 
                   `${sort ? `&sort=${sort}` : ''}`;
         gburl = gburl.replace(/\/\//g, '/');
+        console.log(filter);
     // General keywords for filtering of results
         var cgkeywords = ["fantasy", "gamers", "gamer", "sport", "game", "gaming", "console", "consoles", "play"], 
             nytTotal = "", gbTotal = "", chosen = [], nytAPI = "";
@@ -333,7 +340,7 @@ app.use(express.static(__dirname + '/public'));
       $.ajax({
           type: 'GET',
           url: 'https://api.twitch.tv/kraken/channels/castlegaming/videos?limit=4&broadcasts=true',
-          headers: { 'Client-ID': passkeys['twitchclientid'] }
+          headers: { 'Client-ID': twitchclientid }
       })
           .done(function(pastvids){
             twitchResults(pastvids);
