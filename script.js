@@ -1,8 +1,8 @@
 "use strict";
 var passkeys = (require('./passkeys'))? require('./passkeys'):""; // Import your own passwords, keys, etc. in a separate file obviously 
-var nytapikey = (passkeys['nytapikey'])? passkeys['nytapikey'] : process.env.nytapikey;
-var gbapikey = (passkeys['gbapikey'])? passkeys['gbapikey'] : process.env.gbapikey;
-var twitchclientid = (passkeys['twitchclientid'])? passkeys['twitchclientid'] : process.env.twitchclientid;
+var nytapikey = (passkeys['NYTAPIKEY'])? passkeys['NYTAPIKEY'] : process.env.NYTAPIKEY;
+var gbapikey = (passkeys['GBAPIKEY'])? passkeys['GBAPIKEY'] : process.env.GBAPIKEY;
+var twitchclientid = (passkeys['TWITCHCLIENTID'])? passkeys['TWITCHCLIENTID'] : process.env.TWITCHCLIENTID;
 var fs = require("fs");
 var http = require("http");
 var path = require("path");
@@ -156,7 +156,6 @@ app.use(express.static(__dirname + '/public'));
                   `${filter ? `&filter=${filter}` : ''}` + 
                   `${sort ? `&sort=${sort}` : ''}`;
         gburl = gburl.replace(/\/\//g, '/');
-        console.log(filter);
     // General keywords for filtering of results
         var cgkeywords = ["fantasy", "gamers", "gamer", "sport", "game", "gaming", "console", "consoles", "play"], 
             nytTotal = "", gbTotal = "", chosen = [], nytAPI = "";
