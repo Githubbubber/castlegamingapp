@@ -88,6 +88,14 @@
 	<![endif]-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script type="text/javascript" src="etc/imageMapResizer.min.js"></script>
-	<script type="text/javascript">$('map').imageMapResize();</script>
+	<script type="text/javascript">
+        $('map').imageMapResize();
+
+        if (!window.showAds) {
+            // You user uses adbocker, show a popup dialog, alert, etc here
+            $('div.twitterhex div.middle').html = 'Please pause your Adblocker to see Twitter newsfeed!';
+            // ga('send', 'event', 'User Interaction', 'Adblock', 'Enabled');
+        }
+    </script>
 </body>
 </html>
