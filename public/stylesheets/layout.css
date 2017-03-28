@@ -95,6 +95,13 @@ header.container .twelve .columns { text-align:center; 	margin:auto; }
 
 /* #Media Queries
 ================================================== */
+@media only screen and (max-width: 1280px) {
+		width: 0px;
+		height: 0px;
+		border-style: none;
+		border-width: 0px;
+		border-color: #d1d2d4; /*Keeping for future use*/
+}
 
 @media only screen and (min-width: 1280px) {
 	#lefttriangletext {
@@ -120,15 +127,8 @@ header.container .twelve .columns { text-align:center; 	margin:auto; }
 	#righttriangletext p { position: absolute;    left: 35%;    top: 22%;}
 }
 
-	/* Smaller than standard 960 (devices and browsers) */
+/* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
-	#lefttriangletext, #righttriangletext {
-		width: 100px;
-		height: 100px;
-		border-style: solid;
-		border-width: 10px;
-		border-color: #d1d2d4;
-	}
 }
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
@@ -140,25 +140,11 @@ header.container .twelve .columns { text-align:center; 	margin:auto; }
 	.headerImg {
 		width:50%; margin-left:25%;
 	}
-	#lefttriangletext, #righttriangletext {
-		width: 100px;
-		height: 100px;
-		border-style: solid;
-		border-width: 10px;
-		border-color: #d1d2d4;
-	}
 }
 
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
 	footer { text-align: center; }
-	#lefttriangletext, #righttriangletext {
-		width: 100px;
-		height: 100px;
-		border-style: solid;
-		border-width: 10px;
-		border-color: #d1d2d4;
-	}
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
@@ -175,24 +161,10 @@ header.container .twelve .columns { text-align:center; 	margin:auto; }
 		left: 21.5%;
 		top:-10px;
 	}
-	#lefttriangletext, #righttriangletext {
-		width: 100px;
-		height: 100px;
-		border-style: solid;
-		border-width: 10px;
-		border-color: #d1d2d4;
-	}
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
-	#lefttriangletext, #righttriangletext {
-		width: 100px;
-		height: 100px;
-		border-style: solid;
-		border-width: 10px;
-		border-color: #d1d2d4;
-	}
 }
 
 
