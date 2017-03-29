@@ -1,7 +1,9 @@
 "use strict";
-var nytapikey = process.env.NYTAPIKEY;
-var gbapikey = process.env.GBAPIKEY;
-var twitchclientid = process.env.TWITCHCLIENTID;
+// var passkeys = require("./passkeys.js"); // Comment out for Heroku
+var passkeys = "";  // Comment out for local testing
+var nytapikey = (passkeys.NYTAPIKEY)? passkeys.NYTAPIKEY : process.env.NYTAPIKEY;
+var gbapikey = (passkeys.GBAPIKEY)? passkeys.GBAPIKEY : process.env.GBAPIKEY;
+var twitchclientid = (passkeys.TWITCHCLIENTID)? passkeys.TWITCHCLIENTID : process.env.TWITCHCLIENTID;
 var fs = require("fs");
 var http = require("http");
 var path = require("path");
@@ -79,14 +81,25 @@ app.use(express.static(__dirname + '/public'));
     res.render('blog.ejs', {
       title: 'Castle Gaming - Blog',
       body1: `<section class="container">
-                  <div class="three columns greybg minheight alpha"> <!-- adspace -->
-                      <p>SIDE PAGE ADS</p>
-                      <p class="sidePageAds" >AD #1</p>
-                      <p class="sidePageAds" >AD #2</p>
-                      <p class="sidePageAds" >AD #3</p>
+                  <div class="three columns minheight"> <!-- adspace -->
+                      <div class="sidePage">
+                        <a href="#">
+                          <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                        </a>
+                      </div>
+                      <div class="sidePage">
+                        <a href="#">
+                          <img class="sidePageAds" src="images/pn_podcast_img.jpg" alt="Listen to the Pondering Nerdcast" />
+                        </a>
+                      </div>
+                      <div class="sidePage">
+                        <a href="#">
+                          <img class="sidePageAds" src="images/logo_bg.jpg" alt="Castle Gaming" />
+                        </a>
+                      </div>
                   </div>
 
-                  <div class="eight columns greybg minheight omega" id="blogContent">`,
+                  <div class="eight columns greybg minheight" id="blogContent">`,
       body2:  `     ${ totalBlogs }`,
       body3:  `   </div>
                 <aside class="five columns">            
@@ -131,6 +144,7 @@ app.use(express.static(__dirname + '/public'));
   var y     = today.getFullYear();
   var mon   = ((today.getMonth() + 1) < 10)? '0' + (today.getMonth() + 1) : (today.getMonth() + 1);
   var d     = (today.getDate() < 10)? '0' + today.getDate() : today.getDate();
+
   app.get('/news', function(req, res){
     // New York Times API variables
         var nyturl = "https://api.nytimes.com/svc/topstories/v2/technology.json";
@@ -199,13 +213,24 @@ app.use(express.static(__dirname + '/public'));
           res.render('news.ejs', {
             title: 'Castle Gaming - News',
             body1: `<section class="container">
-                        <div class="three columns greybg minheight alpha"> <!-- adspace -->
-                            <p>SIDE PAGE ADS</p>
-                            <p class="sidePageAds" >AD #1</p>
-                            <p class="sidePageAds" >AD #2</p>
-                            <p class="sidePageAds" >AD #3</p>
+                        <div class="three columns minheight"> <!-- adspace -->
+                          <div class="sidePage">
+                            <a href="#">
+                              <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                            </a>
+                          </div>
+                          <div class="sidePage">
+                            <a href="#">
+                              <img class="sidePageAds" src="images/pn_podcast_img.jpg" alt="Listen to the Pondering Nerdcast" />
+                            </a>
+                          </div>
+                          <div class="sidePage">
+                            <a href="#">
+                              <img class="sidePageAds" src="images/logo_bg.jpg" alt="Castle Gaming" />
+                            </a>
+                          </div>
                         </div>
-                        <div class="thirteen columns greybg minheight omega" id="uniqStyle">`,
+                        <div class="twelve columns greybg minheight" id="uniqStyle">`,
             body2:          `${nytTotal} ${gbTotal}`,
             body3:     `</div>
                     </section>`
@@ -273,7 +298,7 @@ app.use(express.static(__dirname + '/public'));
       res.render('stream.ejs', {
         title: 'Castle Gaming - Streams Page',
         body1: `<section class="container">
-                    <div class="twelve columns greybg minheight alpha">
+                    <div class="twelve columns greybg minheight">
                         <img id="liveornah" src="images/1.png" alt="Castle Gaming Live Stream Status" title="Castle Gaming Live Stream Status" />
                         <span class="authenticate hidden login">
                             <img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png" class="twitch-connect" />
@@ -302,7 +327,7 @@ app.use(express.static(__dirname + '/public'));
                     </div>
                 </section>
                 <section class="container">`, // TAKE OUT DATA-WIDGET-ID IN TWITTER WIDGET BELOW?????
-        body2: `    <div class="three columns greybg minsmallheight alpha pastvid pastvid0">
+        body2: `    <div class="three columns greybg minsmallheight pastvid pastvid0">
                         <div>${game0}: ${pastvids.videos[0]["title"]}</div>
                         <img src="${pastvids.videos[0].thumbnails[0].url}" alt="${pastvids.videos[0]["game"]}: ${pastvids.videos[0]["title"]}" title="${pastvids.videos[0]["game"]}: ${pastvids.videos[0]["title"]}" onclick="pastvid('pastvid0')" id="pastvidone" />
                         <p>Watch on <a class="twitch" href="${pastvids.videos[0].url}" target="_blank">Twitch</a></p>
@@ -322,7 +347,7 @@ app.use(express.static(__dirname + '/public'));
                         <img src="${pastvids.videos[3].thumbnails[0].url}" alt="${pastvids.videos[3]["game"]}: ${pastvids.videos[3]["title"]}" title="${pastvids.videos[3]["game"]}: ${pastvids.videos[3]["title"]}" onclick="pastvid('pastvid3')" />
                         <p>Watch on <a class="twitch" href="${pastvids.videos[3].url}" target="_blank">Twitch</a></p>
                     </div>
-                    <div class="four columns greybg minsmallheight omega">
+                    <div class="four columns greybg minsmallheight omega tweetr">
                         <!-- <div>UPCOMING TOURNAMENTS</div>
                         <div>TOURNAMENTS ARCHIVES</div> -->
                         <p>Latest tweets:</p>
