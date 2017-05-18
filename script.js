@@ -1,6 +1,6 @@
 "use strict";
-var passkeys = require("./passkeys.js"); // Comment out for Heroku
-// var passkeys = "";  // Comment out for local testing
+// var passkeys = require("./passkeys.js"); // Comment out for Heroku
+var passkeys = "";  // Comment out for local testing
 var nytapikey = (passkeys.NYTAPIKEY)? passkeys.NYTAPIKEY : process.env.NYTAPIKEY;
 var gbapikey = (passkeys.GBAPIKEY)? passkeys.GBAPIKEY : process.env.GBAPIKEY;
 var twitchclientid = (passkeys.TWITCHCLIENTID)? passkeys.TWITCHCLIENTID : process.env.TWITCHCLIENTID;
