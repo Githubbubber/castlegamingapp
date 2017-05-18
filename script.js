@@ -1,6 +1,6 @@
 "use strict";
-// var passkeys = require("./passkeys.js"); // Comment out for Heroku
-var passkeys = "";  // Comment out for local testing
+var passkeys = require("./passkeys.js"); // Comment out for Heroku
+// var passkeys = "";  // Comment out for local testing
 var nytapikey = (passkeys.NYTAPIKEY)? passkeys.NYTAPIKEY : process.env.NYTAPIKEY;
 var gbapikey = (passkeys.GBAPIKEY)? passkeys.GBAPIKEY : process.env.GBAPIKEY;
 var twitchclientid = (passkeys.TWITCHCLIENTID)? passkeys.TWITCHCLIENTID : process.env.TWITCHCLIENTID;
@@ -290,10 +290,10 @@ app.use(express.static(__dirname + '/public'));
   app.get('/stream', function(req, res){    
 
     function twitchResults(pastvids) {
-      var game0 = (pastvids.videos[0]["game"])? pastvids.videos[0]["game"] : pastvids.videos[0]["title"];
-      var game1 = (pastvids.videos[1]["game"])? pastvids.videos[1]["game"] : pastvids.videos[1]["title"];
-      var game2 = (pastvids.videos[2]["game"])? pastvids.videos[2]["game"] : pastvids.videos[2]["title"];
-      var game3 = (pastvids.videos[3]["game"])? pastvids.videos[3]["game"] : pastvids.videos[3]["title"];
+      // var game0 = (pastvids.videos[0]["game"])? pastvids.videos[0]["game"] : pastvids.videos[0]["title"];
+      // var game1 = (pastvids.videos[1]["game"])? pastvids.videos[1]["game"] : pastvids.videos[1]["title"];
+      // var game2 = (pastvids.videos[2]["game"])? pastvids.videos[2]["game"] : pastvids.videos[2]["title"];
+      // var game3 = (pastvids.videos[3]["game"])? pastvids.videos[3]["game"] : pastvids.videos[3]["title"];
 
       res.render('stream.ejs', {
         title: 'Castle Gaming - Streams Page',
@@ -326,7 +326,54 @@ app.use(express.static(__dirname + '/public'));
                         </iframe>
                     </div>
                 </section>
-                <section class="container">`, // TAKE OUT DATA-WIDGET-ID IN TWITTER WIDGET BELOW?????
+                <section class="container">`, 
+        body2: `    <div class="three columns greybg minsmallheight">
+                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                    </div>
+                    <div class="three columns greybg minsmallheight">
+                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                    </div>
+                    <div class="three columns greybg minsmallheight">
+                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                    </div>
+                    <div class="three columns greybg minsmallheight">
+                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                    </div>
+                    <div class="four columns greybg minsmallheight omega tweetr">
+                        <!-- <div>UPCOMING TOURNAMENTS</div>
+                        <div>TOURNAMENTS ARCHIVES</div> -->
+                        <p>Latest tweets:</p>
+                        <a class="twitter-timeline" href="https://twitter.com/castlegaming" data-widget-id="664934511264813057" width="290" height="150" data-chrome="nofooter noheader">Tweets by @castlegaming</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    </div>
+                </section>`,
+        body3: ``    
+      });
+    }
+
+    function twitchAJAXCall(twitchResults) {
+      $.ajax({
+          type: 'GET',
+          url: 'https://api.twitch.tv/kraken/channels/castlegaming/videos?limit=4&broadcasts=true',
+          headers:  { 
+                      'Client-ID': twitchclientid
+                      //,'Authorization': 'OAuth <your oauth token with channel_read scope>'
+                    }
+      })
+          .done(function(pastvids){
+            twitchResults(pastvids);
+      })
+          .fail(function(err){
+            console.log(err);
+            var pastvids = 0;
+            twitchResults(pastvids);
+      });
+    }
+
+    twitchAJAXCall(twitchResults);
+
+
+    /*
         body2: `    <div class="three columns greybg minsmallheight pastvid pastvid0">
                         <div>${game0}: ${pastvids.videos[0]["title"]}</div>
                         <img src="${pastvids.videos[0].thumbnails[0].url}" alt="${pastvids.videos[0]["game"]}: ${pastvids.videos[0]["title"]}" title="${pastvids.videos[0]["game"]}: ${pastvids.videos[0]["title"]}" onclick="pastvid('pastvid0')" id="pastvidone" />
@@ -354,27 +401,9 @@ app.use(express.static(__dirname + '/public'));
                         <a class="twitter-timeline" href="https://twitter.com/castlegaming" data-widget-id="664934511264813057" width="290" height="150" data-chrome="nofooter noheader">Tweets by @castlegaming</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     </div>
-                </section>`, // TAKE OUT DATA-WIDGET-ID IN TWITTER WIDGET ABOVE?????
-        body3: ``    
-      });
-    }
-
-    function twitchAJAXCall(twitchResults) {
-      $.ajax({
-          type: 'GET',
-          url: 'https://api.twitch.tv/kraken/channels/castlegaming/videos?limit=4&broadcasts=true',
-          headers: { 'Client-ID': twitchclientid }
-      })
-          .done(function(pastvids){
-            twitchResults(pastvids);
-      })
-          .fail(function(err){
-            console.log(err);
-      });
-    }
-
-    twitchAJAXCall(twitchResults);
-  });
+                </section>`,
+                */
+  });// end of streams page
 
 
 // The Contact CG Page
