@@ -50,7 +50,6 @@ app.use(express.static(__dirname + '/public'));
 // The Blog Page
   app.get('/blog', function(req, res){
     var totalBlogs = "", counter = 1, files = fs.readdirSync("./blog_posts");
-
     try {
       files.forEach(function(fileName) {
         var file = path.join(__dirname, "blog_posts", fileName);
@@ -77,23 +76,22 @@ app.use(express.static(__dirname + '/public'));
       });
       console.log("Blog error: " + err);
     }
-
     res.render('blog.ejs', {
       title: 'Castle Gaming - Blog',
       body1: `<section class="container">
                   <div class="three columns minheight"> <!-- adspace -->
                       <div class="sidePage">
-                        <a href="#">
-                          <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                        <a href="images/iFix_tourny_flyer_2.jpg">
+                            <img class="sidePageAds" src="images/iFix_tourny_flyer_2.jpg" alt="iFix tournament flyer for August 26th, 2017" />
                         </a>
                       </div>
                       <div class="sidePage">
-                        <a href="#">
+                        <a href="www.ponderingnerds.com">
                           <img class="sidePageAds" src="images/pn_podcast_img.jpg" alt="Listen to the Pondering Nerdcast" />
                         </a>
                       </div>
                       <div class="sidePage">
-                        <a href="#">
+                        <a href="images/logo_bg.jpg">
                           <img class="sidePageAds" src="images/logo_bg.jpg" alt="Castle Gaming" />
                         </a>
                       </div>
@@ -215,18 +213,18 @@ app.use(express.static(__dirname + '/public'));
             body1: `<section class="container">
                         <div class="three columns minheight"> <!-- adspace -->
                           <div class="sidePage">
-                            <a href="#">
-                              <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
-                            </a>
-                          </div>
-                          <div class="sidePage">
-                            <a href="#">
+                            <a href="www.ponderingnerds.com">
                               <img class="sidePageAds" src="images/pn_podcast_img.jpg" alt="Listen to the Pondering Nerdcast" />
                             </a>
                           </div>
                           <div class="sidePage">
-                            <a href="#">
-                              <img class="sidePageAds" src="images/logo_bg.jpg" alt="Castle Gaming" />
+                            <a href="images/iFix_tourny_flyer_1.jpg">
+                                <img class="sidePageAds" src="images/iFix_tourny_flyer_1.jpg" alt="iFix tournament flyer for August 26th, 2017" />
+                            </a>
+                          </div>
+                          <div class="sidePage">
+                            <a href="images/iFix_tourny_flyer_2.jpg">
+                                <img class="sidePageAds" src="images/iFix_tourny_flyer_z.jpg" alt="iFix tournament flyer for August 26th, 2017" />
                             </a>
                           </div>
                         </div>
@@ -271,138 +269,96 @@ app.use(express.static(__dirname + '/public'));
         function giantBombAPICall(nytresult, newsOutput) {
           request({
                   url: gburl, 
-                  headers: {
-                    'User-Agent': 'Pulling GB games for Castle Gaming website'
-                  }
-                }, 
-                function(error, response, body){
-                  if(!error && response.statusCode == 200){
-                      newsOutput(nytresult, JSON.parse(body));
-                  } else console.log(error);
-        });
-      }
+                  headers: { 'User-Agent': 'Pulling GB games for Castle Gaming website' }
+          }, 
+          function(error, response, body){
+            if(!error && response.statusCode == 200){
+                newsOutput(nytresult, JSON.parse(body));
+            } else console.log(error);
+          });
+        }
 
       nytAPI = firstAPICall(giantBombAPICall, newsOutput);
   });
 
 
 // The Streams Page
-  app.get('/stream', function(req, res){    
+  app.get('/stream', function(req, res){  
 
     function twitchResults(pastvids) {
       // var game0 = (pastvids.videos[0]["game"])? pastvids.videos[0]["game"] : pastvids.videos[0]["title"];
       // var game1 = (pastvids.videos[1]["game"])? pastvids.videos[1]["game"] : pastvids.videos[1]["title"];
       // var game2 = (pastvids.videos[2]["game"])? pastvids.videos[2]["game"] : pastvids.videos[2]["title"];
-      // var game3 = (pastvids.videos[3]["game"])? pastvids.videos[3]["game"] : pastvids.videos[3]["title"];
-
+      // var game3 = (pastvids.videos[3]["game"])? pastvids.videos[3]["game"] : pastvids.videos[3]["title"]; 
       res.render('stream.ejs', {
         title: 'Castle Gaming - Streams Page',
         body1: `<section class="container">
-                    <div class="twelve columns greybg minheight">
-                        <img id="liveornah" src="images/1.png" alt="Castle Gaming Live Stream Status" title="Castle Gaming Live Stream Status" />
-                        <span class="authenticate hidden login">
-                            <img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png" class="twitch-connect" />
-                        </span>
-                        <span class="authenticated hidden logout">
-                            <img id="logout" src="images/logout.jpg" alt="" />
-                        </span>
-                        <iframe
-                            src="http://player.twitch.tv/?channel=castlegaming"
-                            height="600"
-                            width="95%"
-                            frameborder="0"
-                            scrolling="no"
-                            allowfullscreen="true">
-                        </iframe>
-                    </div>
-                    <div class="four columns greybg minheight omega">
-                       <p>CHAT EMBED</p>
-                       <iframe frameborder="0"
-                                scrolling="no"
-                                id="chat_embed"
-                                src="http://www.twitch.tv/castlegaming/chat"
-                                height="600"
-                                width="95%">
-                        </iframe>
-                    </div>
-                </section>
-                <section class="container">`, 
+                      <div class="twelve columns greybg minheight">
+                          <img id="liveornah" src="images/1.png" alt="Castle Gaming Live Stream Status" title="Castle Gaming Live Stream Status" />
+                          <span class="authenticate hidden login">
+                              <img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png" class="twitch-connect" />
+                          </span>
+                          <span class="authenticated hidden logout">
+                              <img id="logout" src="images/logout.jpg" alt="" />
+                          </span>
+                          <iframe
+                              src="http://player.twitch.tv/?channel=castlegaming"
+                              height="600"
+                              width="95%"
+                              frameborder="0"
+                              scrolling="no"
+                              allowfullscreen="true">
+                          </iframe>
+                      </div>
+                      <div class="four columns greybg minheight omega">
+                         <p>CHAT EMBED</p>
+                         <iframe frameborder="0"
+                                  scrolling="no"
+                                  id="chat_embed"
+                                  src="http://www.twitch.tv/castlegaming/chat"
+                                  height="600"
+                                  width="95%">
+                          </iframe>
+                      </div>
+                  </section>
+                  <section class="container">`, 
         body2: `    <div class="three columns greybg minsmallheight">
-                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
-                    </div>
-                    <div class="three columns greybg minsmallheight">
-                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
-                    </div>
-                    <div class="three columns greybg minsmallheight">
-                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
-                    </div>
-                    <div class="three columns greybg minsmallheight">
-                      <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
-                    </div>
-                    <div class="four columns greybg minsmallheight omega tweetr">
-                        <!-- <div>UPCOMING TOURNAMENTS</div>
-                        <div>TOURNAMENTS ARCHIVES</div> -->
-                        <p>Latest tweets:</p>
-                        <a class="twitter-timeline" href="https://twitter.com/castlegaming" data-widget-id="664934511264813057" width="290" height="150" data-chrome="nofooter noheader">Tweets by @castlegaming</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                    </div>
-                </section>`,
-        body3: ``    
-      });
+                        <a href="images/iFix_tourny_flyer_1.jpg">
+                        <img class="sidePageAds" src="images/iFix_tourny_flyer_1.jpg" alt="iFix tournament flyer" />
+                        </a>
+                      </div>
+                      <div class="three columns greybg minsmallheight">
+                        <a href="images/iFix_tourny_flyer_2.jpg">
+                        <img class="sidePageAds" src="images/iFix_tourny_flyer_2.jpg" alt="iFix tournament flyer" />
+                        </a>
+                      </div>
+                      <div class="three columns greybg minsmallheight">
+                        <a href="images/iFix_logo.jpg">
+                        <img class="sidePageAds" src="images/cg_flyer.jpg" alt="Castle Gaming Flyer" />
+                        </a>
+                      </div>
+                      <div class="three columns greybg minsmallheight">
+                        <a href="images/iFix_logo.jpg">
+                        <img class="sidePageAds" src="images/iFix_logo.jpg" alt="iFix logo" />
+                        </a>
+                      </div>
+                      <div class="four columns greybg minsmallheight omega tweetr">
+                          <!-- <div>UPCOMING TOURNAMENTS</div>
+                          <div>TOURNAMENTS ARCHIVES</div> -->
+                          <p>Latest tweets:</p>
+                          <a class="twitter-timeline" href="https://twitter.com/castlegaming" data-widget-id="664934511264813057" width="290" height="150" data-chrome="nofooter noheader">Tweets by @castlegaming</a>
+                          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                      </div>
+                  </section>`,
+          body3: ``    
+        }); 
     }
 
     function twitchAJAXCall(twitchResults) {
-      $.ajax({
-          type: 'GET',
-          url: 'https://api.twitch.tv/kraken/channels/castlegaming/videos?limit=4&broadcasts=true',
-          headers:  { 
-                      'Client-ID': twitchclientid
-                      //,'Authorization': 'OAuth <your oauth token with channel_read scope>'
-                    }
-      })
-          .done(function(pastvids){
-            twitchResults(pastvids);
-      })
-          .fail(function(err){
-            console.log(err);
-            var pastvids = 0;
-            twitchResults(pastvids);
-      });
+      twitchResults(0);
     }
 
     twitchAJAXCall(twitchResults);
-
-
-    /*
-        body2: `    <div class="three columns greybg minsmallheight pastvid pastvid0">
-                        <div>${game0}: ${pastvids.videos[0]["title"]}</div>
-                        <img src="${pastvids.videos[0].thumbnails[0].url}" alt="${pastvids.videos[0]["game"]}: ${pastvids.videos[0]["title"]}" title="${pastvids.videos[0]["game"]}: ${pastvids.videos[0]["title"]}" onclick="pastvid('pastvid0')" id="pastvidone" />
-                        <p>Watch on <a class="twitch" href="${pastvids.videos[0].url}" target="_blank">Twitch</a></p>
-                    </div>
-                    <div class="three columns greybg minsmallheight pastvid pastvid1">
-                        <div>${game1}: ${pastvids.videos[1]["title"]}</div>
-                        <img src="${pastvids.videos[1].thumbnails[0].url}" alt="${pastvids.videos[1]["game"]}: ${pastvids.videos[1]["title"]}" title="${pastvids.videos[1]["game"]}: ${pastvids.videos[1]["title"]}" onclick="pastvid('pastvid1')" />
-                        <p>Watch on <a class="twitch" href="${pastvids.videos[1].url}" target="_blank">Twitch</a></p>
-                    </div>
-                    <div class="three columns greybg minsmallheight pastvid pastvid2">
-                        <div>${game2}: ${pastvids.videos[2]["title"]}</div>
-                        <img src="${pastvids.videos[2].thumbnails[0].url}" alt="${pastvids.videos[2]["game"]}: ${pastvids.videos[2]["title"]}" title="${pastvids.videos[2]["game"]}: ${pastvids.videos[2]["title"]}" onclick="pastvid('pastvid2')" />
-                        <p>Watch on <a class="twitch" href="${pastvids.videos[2].url}" target="_blank">Twitch</a></p>
-                    </div>
-                    <div class="three columns greybg minsmallheight pastvid pastvid3">
-                        <div>${game3}: ${pastvids.videos[3]["title"]}</div>
-                        <img src="${pastvids.videos[3].thumbnails[0].url}" alt="${pastvids.videos[3]["game"]}: ${pastvids.videos[3]["title"]}" title="${pastvids.videos[3]["game"]}: ${pastvids.videos[3]["title"]}" onclick="pastvid('pastvid3')" />
-                        <p>Watch on <a class="twitch" href="${pastvids.videos[3].url}" target="_blank">Twitch</a></p>
-                    </div>
-                    <div class="four columns greybg minsmallheight omega tweetr">
-                        <!-- <div>UPCOMING TOURNAMENTS</div>
-                        <div>TOURNAMENTS ARCHIVES</div> -->
-                        <p>Latest tweets:</p>
-                        <a class="twitter-timeline" href="https://twitter.com/castlegaming" data-widget-id="664934511264813057" width="290" height="150" data-chrome="nofooter noheader">Tweets by @castlegaming</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                    </div>
-                </section>`,
-                */
   });// end of streams page
 
 
@@ -437,8 +393,7 @@ app.use(express.static(__dirname + '/public'));
       body3: ''
     });
   });
-
-
 });
+
 app.listen(process.env.PORT || 3000);
 console.log("App started");

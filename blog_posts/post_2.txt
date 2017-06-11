@@ -1,4 +1,0 @@
-Title: Blog Title for Two<br />
-Author: Dwain <br />
-<br />
-Post: Uh huh, this is the second blog post. Cool! 
