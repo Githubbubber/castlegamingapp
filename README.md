@@ -7,7 +7,7 @@ Castle Gaming is a NYC-based video game tournament collective. They also provide
 - Heroku account
 - Keys for three APIs: NY Times, Twitch, and GiantBomb.
 
-The [Castle Gaming app][http://www.castlegaming.net/] - I built a fully developed Node JS app deployed on the Heroku hosting platform. I encountered some hiccups while deploying the app but it finally worked out.
+The [Castle Gaming app](http://www.castlegaming.net/) - I built a fully developed Node JS app deployed on the Heroku hosting platform. I encountered some hiccups while deploying the app but it finally worked out.
 
 It uses three APIs:
 - [The New York Times](https://developer.nytimes.com/)
