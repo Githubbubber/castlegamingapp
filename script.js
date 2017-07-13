@@ -1,6 +1,6 @@
 "use strict";
-// var passkeys = require("./passkeys.js"); // Comment out for Heroku
-var passkeys = "";  // Comment out for local testing
+var passkeys = require("./passkeys.js"); // Comment out for Heroku
+// var passkeys = "";  // Comment out for local testing
 var nytapikey = (passkeys.NYTAPIKEY)? passkeys.NYTAPIKEY : process.env.NYTAPIKEY;
 var gbapikey = (passkeys.GBAPIKEY)? passkeys.GBAPIKEY : process.env.GBAPIKEY;
 var twitchclientid = (passkeys.TWITCHCLIENTID)? passkeys.TWITCHCLIENTID : process.env.TWITCHCLIENTID;
@@ -224,7 +224,7 @@ app.use(express.static(__dirname + '/public'));
                           </div>
                           <div class="sidePage">
                             <a href="images/iFix_tourny_flyer_2.jpg">
-                                <img class="sidePageAds" src="images/iFix_tourny_flyer_z.jpg" alt="iFix tournament flyer for August 26th, 2017" />
+                                <img class="sidePageAds" src="images/iFix_tourny_flyer_2.jpg" alt="iFix tournament flyer for August 26th, 2017" />
                             </a>
                           </div>
                         </div>
@@ -284,7 +284,7 @@ app.use(express.static(__dirname + '/public'));
 
 // The Streams Page
   app.get('/stream', function(req, res){  
-
+    var streamsTotal = 0, streamserr = 0;
     function twitchResults(pastvids) {
       // var game0 = (pastvids.videos[0]["game"])? pastvids.videos[0]["game"] : pastvids.videos[0]["title"];
       // var game1 = (pastvids.videos[1]["game"])? pastvids.videos[1]["game"] : pastvids.videos[1]["title"];
@@ -355,8 +355,48 @@ app.use(express.static(__dirname + '/public'));
     }
 
     function twitchAJAXCall(twitchResults) {
-      twitchResults(0);
+      $.ajax({
+         success: function() {
+            
+              $.getJSON(archivevidurl, {
+                limit: 4, //broadcasts: "true",
+                client_id: twitchclientid })  
+              .done(function(pastvids){  }) 
+              .fail(function(err){ console.log(err);  });
+        }
+      });
     }
+
+    function twitchAJAXCall(twitchResults) {
+        $.ajax({ 
+            method: 'GET',   
+            url: 'https://api.twitch.tv/kraken/channels/castlegaming',
+            headers: { 'Client-ID': twitchclientid }
+        }).done(function(data) {
+          var archivevidurl = data["_links"]["videos"];
+          console.log("We in dis bish? \n" + archivevidurl);
+          twitchResults(0);
+        })
+        .fail(function(err) { 
+          // fs.open('error_log/errorlog_streams_page.txt', 'a+', (openerr, fd) => {
+          //   if (openerr) {
+          //     if (openerr.code === "EEXIST") {
+          //       console.error('errorlog_streams_page.txt already exists');
+          //       return;
+          //     } else {
+          //       streamsTotal += streamserr;
+          //       throw openerr;
+          //     }
+          //   }
+           
+          //   streamsTotal += streamserr;
+          //   fs.appendFileSync("error_log/errorlog_streams_page.txt", `Streams error: ${streamserr}\n`);
+          // });
+          // throw streamserr; 
+          console.log(err);  
+          twitchResults(0);
+        });
+      }
 
     twitchAJAXCall(twitchResults);
   });// end of streams page
