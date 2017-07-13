@@ -12,9 +12,9 @@
     "jsdom": "^9.11.0"
   },
   "engines": {
-    "node": "6.9.2"
+    "node": "6.11.1"
   },
-  "author": "Mekesia Brown for Thing to Do",
+  "author": "Mekesia Brown for Gifted Media, Inc.",
   "license": "ISC",
   "description": "",
   "devDependencies": {}
