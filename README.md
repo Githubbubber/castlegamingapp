@@ -26,8 +26,5 @@ I also used the simple, light-weight [Skeleton CSS framework](http://getskeleton
 - Gifted Media, Inc.
 
 
-<<<<<<< HEAD
 Thanks for visiting!
-=======
-Thanks for visiting!
->>>>>>> 6b83838026c2ca39bcc9f8ee2be4db2e077dcfe5
+
