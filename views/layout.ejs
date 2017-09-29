@@ -20,13 +20,23 @@
 	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+    <script type="text/javascript" src="etc/advertisement.js"></script>
+    <script type="text/javascript" src="etc/showads.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {        
             $("div.pastvid img").fadeIn(1000);    
             $("div.pastvid img").css({  width: "90%",   paddingTop: "8%", cursor:"pointer" });
+
+            if ((window.canRunAds === undefined) || !window.showAds) {
+                // You user uses adbocker, show a popup dialog, alert, etc here
+                console.log("This picked up an ad blocker");
+                $("div.twitterhex div.middle").html("<p>Please pause your Adblocker to see Twitter newsfeed!</p>");
+                $("div.tweetr").html("<p>Please pause your Adblocker to see Twitter newsfeed!</p>");
+            } else {
+                console.log("Twitter feed can be loaded. Yay!");
+            }
         });
     </script>
     <script>
@@ -37,7 +47,6 @@
 
       ga('create', 'UA-96324507-1', 'auto');
       ga('send', 'pageview');
-
     </script>
 </head>
 <body>
