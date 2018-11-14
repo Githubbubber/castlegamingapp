@@ -23,7 +23,6 @@ I also used the simple, light-weight [Skeleton CSS framework](http://getskeleton
 ## Acknowledgments
 - [Dwain Samuels](https://twitter.com/Stryker2000) for giving me the chance to work on such a great project
 - [Mark Nyon](https://github.com/trystant) for his assistance in creating a stronger README.md file
-- Gifted Media, Inc.
 
 
 Thanks for visiting!
